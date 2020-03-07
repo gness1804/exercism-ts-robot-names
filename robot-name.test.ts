@@ -27,16 +27,16 @@ describe("Robot", () => {
     expect(robot.name).toMatch(/^[A-Z]{2}\d{3}$/);
   });
 
-  xit("name is the same each time", () => {
+  it("name is the same each time", () => {
     expect(robot.name).toEqual(robot.name);
   });
 
-  xit("different robots have different names", () => {
+  it("different robots have different names", () => {
     const differentRobot = new RobotName();
     expect(differentRobot.name).not.toEqual(robot.name);
   });
 
-  xit("is able to reset the name", () => {
+  it("is able to reset the name", () => {
     const originalName = robot.name;
 
     robot.resetName();

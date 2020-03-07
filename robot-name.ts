@@ -21,7 +21,9 @@ export default class RobotName {
     return `${str1}${str2}${nums.join(" ").replace(/\s/g, "")}`;
   }
 
-  resetName(): void {}
+  resetName(): void {
+    this.name = this.generateName();
+  }
 
   generateRandomLetter(): string {
     // ASCII codes for A-Z: 65-90
