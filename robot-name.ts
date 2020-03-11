@@ -1,4 +1,5 @@
 export default class RobotName {
+  static allNames = new Set();
   name: string;
 
   constructor() {
@@ -7,9 +8,9 @@ export default class RobotName {
 
   generateName(): string {
     const str1 = this.generateRandomLetter();
-    let str2 = this.generateRandomLetter();
+    const str2 = this.generateRandomLetter();
 
-    let nums = [
+    const nums = [
       this.generateRandomDigit(),
       this.generateRandomDigit(),
       this.generateRandomDigit()
@@ -18,11 +19,19 @@ export default class RobotName {
     // enforce that the letters are not within 2 or less of each other
     if (Math.abs(str1.charCodeAt(0) - str2.charCodeAt(0)) <= 2)
       this.generateName();
-    return `${str1}${str2}${nums.join(" ").replace(/\s/g, "")}`;
+    const newName = `${str1}${str2}${nums.join(" ").replace(/\s/g, "")}`;
+    RobotName.allNames.add(newName);
+    return newName;
   }
 
   resetName(): void {
-    this.name = this.generateName();
+    const names = Array.from(RobotName.allNames);
+    const newName = this.generateName();
+    if (names.includes(newName)) {
+      this.resetName();
+    } else {
+      this.name = newName;
+    }
   }
 
   generateRandomLetter(): string {
